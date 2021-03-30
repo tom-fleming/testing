@@ -21,17 +21,16 @@ function getDimensions() {
 function sendDimensionsToParent() {
   'use strict';
 
-
-  window.parent.postMessage(getDimensions, '*');
+  window.parent.postMessage(getDimensions(), '*');
 }
 
 window.addEventListener('load', function () {
   'use strict';
 
-  window.parent.postMessage(getDimensions, '*');
+  window.parent.postMessage(getDimensions(), '*');
 
   if (window.MutationObserver) {
-    var observer = new MutationObserver(sendDimensionsToParent);
+    var observer = new MutationObserver(sendDimensionsToParent());
     var config = {
       attributes: true,
       attributeOldValue: false,
@@ -44,7 +43,7 @@ window.addEventListener('load', function () {
     observer.observe(document.body, config);
   }
   else {
-    window.setInterval(sendDimensionsToParent, 300);
+    window.setInterval(sendDimensionsToParent(), 300);
   }
 });
 </script>
