@@ -30,7 +30,8 @@ window.addEventListener('load', function () {
   window.parent.postMessage(getDimensions(), '*');
 
   if (window.MutationObserver) {
-    var observer = new MutationObserver(sendDimensionsToParent());
+    const dimensionsToParent = sendDimensionsToParent();
+    var observer = new MutationObserver(dimensionsToParent);
     var config = {
       attributes: true,
       attributeOldValue: false,
