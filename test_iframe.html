@@ -1,0 +1,68 @@
+<html>
+<head>
+	<script>
+/**
+ * @file
+ * Iframe resizer iframe script.
+ * @see https://jacobfilipp.com/iframe-height-autoresize-crossdomain/
+ */
+
+function getDimensions() {
+  'use strict';
+
+  var height = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+
+  return {
+    width: window.innerWidth,
+    height: height
+  };
+}
+
+function sendDimensionsToParent() {
+  'use strict';
+
+
+  window.parent.postMessage(getDimensions, '*');
+}
+
+window.addEventListener('load', function () {
+  'use strict';
+
+  window.parent.postMessage(getDimensions, '*');
+
+  if (window.MutationObserver) {
+    var observer = new MutationObserver(sendDimensionsToParent);
+    var config = {
+      attributes: true,
+      attributeOldValue: false,
+      characterData: true,
+      characterDataOldValue: false,
+      childList: true,
+      subtree: true
+    };
+
+    observer.observe(document.body, config);
+  }
+  else {
+    window.setInterval(sendDimensionsToParent, 300);
+  }
+});
+</script>
+</head>
+<body>
+	<h2>Here is a header. It's not that long.</h2>
+	<p>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum gravida laoreet rutrum. Cras laoreet, elit id consequat sodales, nisi magna mollis sapien, eu ullamcorper lectus massa vel nunc. Vestibulum egestas, lectus ut blandit mattis, quam massa commodo nisi, id ornare ex tortor ullamcorper est. Sed dictum sapien lacus, in tincidunt ex cursus ut. Cras eu libero a felis malesuada dignissim id mollis dui. Nunc venenatis purus vitae eros porta pharetra. Aliquam porttitor ante lectus, sed varius nisl elementum id. Suspendisse ac mi et enim tincidunt viverra eget et purus. Sed aliquam nulla lacus. Curabitur porttitor, enim vitae ultrices eleifend, augue odio volutpat nibh, id semper dolor dolor porttitor libero. Nulla eget dolor laoreet, sollicitudin lectus ut, venenatis augue. Vivamus dapibus suscipit lacus. Cras id odio vulputate, volutpat orci id, scelerisque lectus. Pellentesque rutrum lectus risus, lobortis feugiat lectus ultrices in. Aliquam nec vestibulum orci.
+</p><p>
+Praesent pulvinar scelerisque augue, a blandit ipsum malesuada et. Donec fringilla velit lorem, et porttitor dolor dapibus in. Cras et vehicula enim, at faucibus dui. Etiam fermentum auctor mi a cursus. Nam orci tortor, condimentum a eleifend id, vestibulum et ligula. In turpis leo, ultrices id dictum vel, feugiat non massa. Etiam quis tortor purus. Curabitur eu tellus sed massa porta aliquam. Nulla justo purus, elementum venenatis purus eu, mollis facilisis lorem. Aenean egestas, mauris ut dapibus consequat, nulla nibh pretium lorem, vel pulvinar purus orci vitae ex. Quisque mollis quam non turpis auctor, et euismod sapien ornare. Cras sit amet nisl dui.
+</p><p>
+Fusce at nisl dui. Curabitur varius nec felis non condimentum. Proin sapien ligula, scelerisque at convallis ac, molestie et nibh. Pellentesque pharetra dui eget eros convallis, nec laoreet nisi egestas. Donec ut massa volutpat odio lobortis consectetur. Suspendisse maximus odio quis hendrerit placerat. In aliquet congue mi, nec maximus turpis convallis eget.
+</p><p>
+Phasellus semper odio id sem laoreet, a blandit lectus faucibus. Vestibulum ornare, lorem at volutpat ullamcorper, elit lectus volutpat urna, sed vehicula leo lacus ac leo. Vivamus scelerisque ligula quis ante malesuada vestibulum. Ut posuere varius mauris vitae sagittis. Proin vehicula mattis malesuada. In at malesuada ante. Integer nec aliquet enim, vitae lobortis ipsum. Vivamus sit amet gravida leo. Aenean non semper justo. Maecenas aliquam, tellus sit amet tristique rutrum, magna orci fermentum orci, malesuada accumsan nunc velit et diam. Proin sed congue quam. Aenean iaculis ex nibh, a tincidunt nunc blandit sit amet. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris nec ipsum justo.
+</p><p>
+Maecenas ultricies velit sit amet lacus pulvinar, eget lacinia turpis pretium. Donec convallis dignissim velit, ac scelerisque magna sodales ut. Donec posuere ipsum purus, ut tristique dui condimentum ac. Fusce libero ipsum, bibendum quis pretium nec, tristique in enim. Interdum et malesuada fames ac ante ipsum primis in faucibus. Vestibulum consequat quis lectus sit amet accumsan. Nulla facilisi. Sed at sapien id orci dapibus faucibus nec nec dolor. Cras lobortis, ante vitae finibus finibus, nisl nulla iaculis mauris, sit amet efficitur nisl lectus vel felis. Donec a sodales metus. Nunc porttitor vulputate lorem, a auctor urna bibendum ac. Sed id metus nec erat vestibulum hendrerit. Pellentesque est tortor, sollicitudin eget pellentesque vel, laoreet a lectus. Morbi id elementum elit.
+</p><p>
+Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum fermentum suscipit tortor, fringilla accumsan metus luctus eget. Praesent pretium ac mi at elementum. In ut dictum tellus. Curabitur dignissim nisl non eros ultrices condimentum tristique in nisi. Integer pulvinar magna magna. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Fusce interdum ligula quam, in dapibus nibh aliquet a. Aliquam pellentesque lacus libero, et lacinia nunc fringilla non. Suspendisse sed lectus pellentesque, dictum velit sit amet, commodo ligula. Suspendisse blandit rutrum eros et pellentesque. Curabitur accumsan, lacus eget auctor tristique, elit purus tincidunt tortor, ut varius lectus orci vitae quam. Aenean non est vel nunc congue laoreet vel in nibh. Maecenas a lacinia sapien. Etiam eu venenatis leo. Aliquam erat volutpat.
+	</p>
+</body>
+</html>
