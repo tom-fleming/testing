@@ -7,33 +7,25 @@
  * @see https://jacobfilipp.com/iframe-height-autoresize-crossdomain/
  */
 
-function getMyHeight() {
-  return Math.max( document.body.scrollHeight, document.documentElement.scrollHeight)
+function getDimensions() {
+  var height = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+
+  return {
+    width: window.innerWidth,
+    height: height
+  };
 }
 
 function sendDimensionsToParent() {
-  var iframeDimensions_New = {
-    'width': window.innerWidth,
-    'height': getMyHeight()
-  };
-
-  if( (iframeDimensions_New.width != iframeDimensions_Old.width) || (iframeDimensions_New.height != iframeDimensions_Old.height) ) {
-    window.parent.postMessage(iframeDimensions_New, "*");
-    iframeDimensions_Old = iframeDimensions_New;
-  }
+  window.parent.postMessage(getDimensions, '*');
 }
 
-window.addEventListener( 'load', function() {
-  iframeDimensions_Old = {
-    'width': window.innerWidth,
-    'height': getMyHeight()
-  };
+window.addEventListener('load', function () {
+  window.parent.postMessage(getDimensions, '*');
 
-  window.parent.postMessage(iframeDimensions_Old, "*");
-
-  if( window.MutationObserver ) {
+  if (window.MutationObserver) {
     var observer = new MutationObserver(sendDimensionsToParent);
-    config = {
+    var config = {
       attributes: true,
       attributeOldValue: false,
       characterData: true,
@@ -48,8 +40,6 @@ window.addEventListener( 'load', function() {
     window.setInterval(sendDimensionsToParent, 300);
   }
 });
-
-
 </script>
 </head>
 <body>
