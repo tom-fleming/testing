@@ -1,20 +1,18 @@
 <html>
 <head>
 <script>
-	let height;
-	const sendPostMessage = () => {
-	  if (height !== document.getElementById('container').offsetHeight) {
-	    height = document.getElementById('container').offsetHeight;
-	    window.parent.postMessage({
-	      frameHeight: height
-	    }, '*');
-	    console.log(height) // check the message is being sent correctly
-	  }
-	}
-	window.onload = () => sendPostMessage();
-	window.onresize = () => sendPostMessage();
-	document.getElementById('add-para').onclick = () => sendPostMessage();
-	document.getElementById('remove-para').onclick = () => sendPostMessage();
+let height;
+const sendPostMessage = () => {
+  if (height !== document.body.offsetHeight) {
+    height = document.body.offsetHeight;
+    window.parent.postMessage({
+      frameHeight: height
+    }, '*');
+    console.log(height) // check the message is being sent correctly
+  }
+}
+window.onload = () => sendPostMessage();
+window.onresize = () => sendPostMessage();
 </script>
 </head>
 <body>
