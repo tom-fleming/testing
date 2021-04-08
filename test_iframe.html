@@ -1,18 +1,23 @@
 <html>
 <head>
 <script>
+/**
+ * @file
+ * Iframe resizer iframe script.
+ */
 let height;
 const sendPostMessage = () => {
   if (height !== document.body.offsetHeight) {
     height = document.body.offsetHeight;
     window.parent.postMessage({
-      frameHeight: height
+      iframeHeight: height,
+      iframeSrc: window.location.href
     }, '*');
-    console.log(height) // check the message is being sent correctly
   }
 }
 window.onload = () => sendPostMessage();
 window.onresize = () => sendPostMessage();
+
 </script>
 </head>
 <body style="float: left;">
